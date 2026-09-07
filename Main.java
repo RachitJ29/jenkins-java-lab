@@ -1,5 +1,5 @@
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello, Jenkins CI/CD Lab");
+        System.out.println("Hello, Jenkins CI/CD Lab - Webhook Test");
     }
 }
