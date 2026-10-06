@@ -24,8 +24,57 @@ jobs:
         run: |
           javac Main.java
           javac MainTest.java
+
       - name: Automated Code Quality Test
         run: java MainTest
+
+      - name: Set up Node.js for AI Review
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install GitHub Copilot CLI
+        run: npm install -g @github/copilot
+
+      - name: AI Code Review
+        env:
+          COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_GITHUB_TOKEN }}
+        run: |
+          MAIN_CODE="$(cat Main.java)"
+          TEST_CODE="$(cat MainTest.java)"
+
+          copilot -p "Review the following Java project as part of a CI code-quality review.
+
+          Analyze:
+          1. Code quality
+          2. Maintainability
+          3. Potential bugs
+          4. Test quality
+          5. Improvement suggestions
+
+          Give a concise report containing:
+          - Overall assessment
+          - Issues found
+          - Suggestions
+          - Risk level
+
+          Do not modify any files.
+
+          ===== Main.java =====
+          $MAIN_CODE
+
+          ===== MainTest.java =====
+          $TEST_CODE
+          " -s > ai-code-review.txt
+
+      - name: Display AI Review
+        run: cat ai-code-review.txt
+
+      - name: Upload AI Review Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-code-review
+          path: ai-code-review.txt
 
       - name: Run Application
         run: java Main
