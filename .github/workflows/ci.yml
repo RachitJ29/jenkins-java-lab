@@ -1,4 +1,4 @@
-name: Java CI Pipeline
+name: AI-Assisted Java CI Pipeline
 
 on:
   push:
@@ -20,11 +20,11 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Compile Java Application
-        run: javac Main.java
+      - name: Compile Application and Test
+        run: javac Main.java MainTest.java
+
+      - name: Automated Code Quality Test
+        run: java MainTest
 
       - name: Run Application
         run: java Main
-
-      - name: Verify Build
-        run: echo "Build and execution completed successfully"
