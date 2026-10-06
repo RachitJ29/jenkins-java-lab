@@ -21,8 +21,9 @@ jobs:
           distribution: 'temurin'
 
       - name: Compile Application and Test
-        run: javac Main.java MainTest.java
-
+        run: |
+          javac Main.java
+          javac MainTest.java
       - name: Automated Code Quality Test
         run: java MainTest
 
