@@ -2,7 +2,7 @@ public class MainTest {
 
     public static void main(String[] args) {
 
-        String expected = "Hello, Jenkins CI/CD Lab - ";
+        String expected = "Hello, Jenkins CI/CD Lab - Webhook Test";
         String actual = Main.getMessage();
 
         if (!expected.equals(actual)) {
